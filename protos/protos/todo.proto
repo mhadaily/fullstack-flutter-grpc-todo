@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+message Todo{
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+    bool done = 4;
+    repeated string labels = 5;
+}
+
+message TodoList{
+    repeated Todo todos = 1;
+}
+
+message TodoByIdRequest{
+    int32 id = 1;
+}
+
+message Empty{}
+
+service TodoService{
+    rpc Create(Todo) returns (Todo);
+    rpc Read(TodoByIdRequest) returns (Todo);
+    rpc Update(Todo) returns (Todo);
+    rpc Delete(Todo) returns (Empty);
+    rpc List(Empty) returns (TodoList);
+    rpc ListTodosStream(Empty) returns (stream Todo);
+}
